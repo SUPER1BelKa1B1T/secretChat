@@ -8,7 +8,7 @@ import colorama
 
 colorama.init()
 
-def server(ip, port, name):
+def server(ip, port):
     UDPserver = socket(AF_INET, SOCK_DGRAM)
     UDPserver.bind((ip, port))
     UDPserver.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
@@ -50,7 +50,7 @@ os.system('cls')
 
 if __name__=='__main__':
     threadCMD = threading.Thread(target=server, args = (str(ip), int(port), str(name)))
-    threadBOT = threading.Thread(target=client, args = (str(toip), int(toport), str(name)))
+    threadBOT = threading.Thread(target=client, args = (str(toip), int(toport)))
     threadCMD.start()
     threadBOT.start()
 
