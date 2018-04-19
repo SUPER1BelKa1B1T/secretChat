@@ -8,6 +8,10 @@ import colorama
 
 colorama.init()
 
+def new_thread(function, arguments):
+    thread = threading.Thread(target=function, args=arguments)
+    thread.start()
+
 def server(ip, port):
     UDPserver = socket(AF_INET, SOCK_DGRAM)
     UDPserver.bind((ip, port))
@@ -34,25 +38,24 @@ def client(ip, port, name):
         UDPclient.sendto(str.encode('[' + name + ']' + data), (ip, port))
 
 
-while True:
-    ip = input('==>Input ip:')
-    port = input('==>Input port:')
-
-    toip = input('==>Input toip: ')
-    toport = input('==>Input toport: ')
-
-    name = input(u'==>Name: ')
-
-    if ip and port:
-        break
-
-os.system('cls')
-
 if __name__=='__main__':
-    threadCMD = threading.Thread(target=server, args = (str(ip), int(port), str(name)))
-    threadBOT = threading.Thread(target=client, args = (str(toip), int(toport)))
-    threadCMD.start()
-    threadBOT.start()
+    while True:
+        ip = input('==>Input ip:')
+        port = input('==>Input port:')
+
+        toip = input('==>Input toip: ')
+        toport = input('==>Input toport: ')
+
+        name = input(u'==>Name: ')
+
+        if ip and port:
+            break
+
+    os.system('cls')
+    new_thread(server, (str(ip), int(port)))
+    new_thread(client, (str(toip), int(toport), str(name)))
+
+    
 
 
     
